@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Breed Classifier</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/upload.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body class="bg-light" style="font-family: 'Kanit', sans-serif;">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center">Cat Breed Classifier</h2>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="container-upload">
+                            <div class="folder-upload">
+                              <div class="front-side-upload">
+                                <div class="tip-upload"></div>
+                                <div class="cover-upload"></div>
+                              </div>
+                              <div class="back-side cover-upload"></div>
+                            </div>
+                            <label class="custom-file-upload" for="file">
+                                Choose a file
+                                <input class="title-upload" type="file" id="file" name="file"/>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button type="submit" class="button-submit">Predict</button>
+                    </div>
+                </form>
+                {% if label %}
+                    <div class="mt-5 text-center">
+                        <h4>Prediction Result</h4>
+                        <p><strong>Breed:</strong> {{ label }}</p>
+                        <p><strong>Confidence:</strong> {{ "%.2f"|format(score * 100) }}%</p>
+                        <img src="{{ image_url }}" class="img-fluid mt-3" alt="Uploaded Image">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Bootstrap JS and Popper.js CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Include custom alert script -->
+    <script src="{{ url_for('static', filename='components/alert.js') }}"></script>
+</body>
+</html>
